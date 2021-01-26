@@ -1,4 +1,4 @@
-import org.junit.Test;
+
 import properties.PropertyUitls;
 
 /**
@@ -8,7 +8,6 @@ import properties.PropertyUitls;
  * @description
  */
 public class PropertiesUtilsTest {
-    @Test
     public void getTest(){
         Object key = PropertyUitls.getByname(PropertyUitls.class, "example.properties", "key");
         System.out.println(key);
