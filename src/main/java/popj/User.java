@@ -34,6 +34,16 @@ public class User {
         return count;
     }
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "name='" + name + '\'' +
+                ", age=" + age +
+                ", monery=" + monery +
+                ", count=" + count +
+                '}';
+    }
+
     public void setCount(Long count) {
         this.count = count;
     }

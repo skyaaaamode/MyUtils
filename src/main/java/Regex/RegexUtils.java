@@ -29,6 +29,15 @@ public class RegexUtils {
     public static final String reg03="^[\\s\\S]{1,20}$";
 
 
+    public static final String reg04="^0+(\\.0+){0,3}$";
+
+
+    /**
+     * 日期格式
+     */
+    public static final String reg05="^\\d{4}(\\-\\d{1,2}){2}$";
+
+
 
 
 
@@ -37,9 +46,9 @@ public class RegexUtils {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        while (!scanner.hasNext("0")){
+        while (!scanner.hasNext("12")){
             String s = scanner.nextLine();
-            System.out.println(Pattern.compile(reg03).matcher(s).matches());
+            System.out.println(Pattern.compile(reg05).matcher(s).matches());
         }
     }
 }

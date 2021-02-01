@@ -10,7 +10,11 @@ import java.util.Date;
  * @Description TODO
  * @Date 2021/1/5 19:14
  */
+
 public class Test {
+
+
+
     public static void main(String[] args) {
         Date date= new Date(System.currentTimeMillis());
         String pattern="yyyy/MM/dd HH时mm分ss秒";
