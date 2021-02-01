@@ -39,7 +39,7 @@ public class TxtReader {
     public static String[] attributes=new String[]{
       "int","Integer","String","Number","Long"
     };
-    public static HashMap<String,String> Annotationrules=new HashMap<>(){{
+    public static HashMap<String,String> Annotationrules=new HashMap<String, String>(){{
         put("String:allow","NotNull");
         put("String:required","NotBlank");
         put("required","NotNull");
