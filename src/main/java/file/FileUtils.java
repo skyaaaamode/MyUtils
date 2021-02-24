@@ -3,6 +3,7 @@ package file;
 import com.alibaba.fastjson.support.spring.annotation.ResponseJSONP;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -28,7 +29,7 @@ public class FileUtils {
         FileWriter fw = null;
         try {
             //创建字符输出流对象，负责向文件内写入
-            fw = new FileWriter("text.txt",true);
+            fw = new FileWriter(filepath,true);
             //将str里面的内容读取到fw所指定的文件中
             fw.write(content+"\n");
         } catch (IOException e) {
@@ -142,8 +143,10 @@ public class FileUtils {
 
         }
         String xml = buffer.toString();
-        System.out.println(xml);
-        stringToFile()
+        File flie = new File(filepath);
+        flie.delete();
+        stringToFile(xml,filepath);
+        printFile(filepath);
     }
 
     /**
@@ -157,7 +160,7 @@ public class FileUtils {
 
 
     public static void main(String[] args) {
-        String path = FileUtils.class.getClassLoader().getResource("text.txt").getPath();
+        String path = "C:\\Users\\zhouzf32074\\IdeaProjects\\MyUtils\\src\\main\\resources\\text.txt";
         resolveFile(path);
     }
 
