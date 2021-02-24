@@ -39,8 +39,10 @@ public class HttpClient4 {
             HttpGet httpGet = new HttpGet(url);
             // 设置请求头信息，鉴权
             //设置header
-            for (Map.Entry<String,String> item:header.entrySet()){
-                httpGet.setHeader(item.getKey(),item.getValue());
+            if(header!=null&&header.size()>0){
+                for (Map.Entry<String,String> item:header.entrySet()){
+                    httpGet.setHeader(item.getKey(),item.getValue());
+                }
             }
             // 设置配置请求参数
             RequestConfig requestConfig = RequestConfig.custom().setConnectTimeout(35000)// 连接主机服务超时时间

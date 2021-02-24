@@ -119,6 +119,8 @@ public class CopycodeUtils {
         }
     }
 
+
+
     public static void main(String[] args) {
         String sysClipboardText = getSysClipboardText();
         setSysClipboardText(sysClipboardText+"hhh");

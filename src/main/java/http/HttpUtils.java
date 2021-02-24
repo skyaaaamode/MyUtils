@@ -10,7 +10,7 @@ import java.util.Map;
  * @Date 2021/2/1 13:41
  */
 public class HttpUtils {
-    private static String doGet(String url,Map<String,String> params,Map<String,String> header){
+    public static String doGet(String url,Map<String,String> params,Map<String,String> header){
 
         String getUrl = map2url(params, url);
 
