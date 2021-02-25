@@ -43,6 +43,13 @@
             <artifactId>httpclient</artifactId>
             <version>4.5.7</version>
         </dependency>
+<!--        二维码生成依赖-->
+        <dependency>
+            <groupId>Qrcode</groupId>
+            <artifactId>Qrcode</artifactId>
+            <version>1.0</version>
+        </dependency>
+
     </dependencies>
     <build>
         <plugins>

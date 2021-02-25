@@ -144,6 +144,11 @@ public class FileUtils {
         }
         String xml = buffer.toString();
         File flie = new File(filepath);
+        try {
+            bf.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         flie.delete();
         stringToFile(xml,filepath);
         printFile(filepath);
