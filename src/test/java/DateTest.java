@@ -50,6 +50,19 @@ public class DateTest {
         System.out.println(calendar.getTime().getTime());
 
     }
+    @Test
+    public void testTime(){
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        simpleDateFormat.setLenient(false);
+        Date format = null;
+        try {
+            format = simpleDateFormat.parse("2020-02-31");
+        } catch (ParseException e) {
+            throw new RuntimeException("日期不合法");
+
+        }
+        System.out.println(format);
+    }
 
 
 }

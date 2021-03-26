@@ -112,7 +112,7 @@ public class QrCodeUtils {
     }
 
     public static void main(String[] args) throws IOException {
-        BufferedImage qrcode = createQrcode("我有一个小猪宝，臭猪宝。闪闪发光大珠宝，亮晶晶。一个小猪宝，带个大珠宝，一闪一闪放光芒，放光芒。",'M' , 'C', 40);
+        BufferedImage qrcode = createQrcode("www.baidu.com",'M' , 'C', 20);
         writeToFile(qrcode,"jpg",new File("C:\\Users\\zhouzf32074\\IdeaProjects\\MyUtils\\src\\main\\resources\\test.jpg"));
     }
 
