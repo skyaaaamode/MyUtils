@@ -69,6 +69,13 @@
             <artifactId>jfoenix</artifactId>
             <version>9.0.10</version>
         </dependency>
+        <dependency>
+            <groupId>com.hundsun.light</groupId>
+            <artifactId>util-crypt</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+
+
 
 
     </dependencies>

@@ -38,6 +38,37 @@ public class RegexUtils {
     public static final String reg05="^\\d{4}(\\-\\d{1,2}){2}$";
 
 
+    /**
+     * 以https开头的字符串
+     * @param args
+     */
+    public static final String https="^https[\\s\\S]*$";
+
+    /**
+     * git格式地址
+     * @param args
+     */
+    public static final String git="^(((git@||ssh://git@)?[a-zA-Z0-9]{1,100}.[a-zA-Z0-9]{1,100}.[a-zA-Z0-9]{0,100}:[a-zA-Z0-9][a-zA-Z0-9-_]{0,19}(/[0-9a-zA-Z_!~*().&=+$%-]{1,100}){1,10}.git))";
+
+
+    /**
+     * 用逗号分隔字符串
+     */
+    public static final String set="^[A-Za-z]+(,[A-Za-z]+)*$";
+
+
+    /**
+     * 用逗号分隔数值字符串
+     */
+    public static final String setNum="^\\d+(,\\d+)*$";
+
+
+    public static final String model="\\$\\{[\\s\\S]*\\}";
+
+    public static final String percent="^\\d*(\\.\\d+)?%$";
+
+
+
 
 
 
@@ -48,7 +79,10 @@ public class RegexUtils {
         Scanner scanner = new Scanner(System.in);
         while (!scanner.hasNext("12")){
             String s = scanner.nextLine();
-            System.out.println(Pattern.compile(reg05).matcher(s).matches());
+            System.out.println(Pattern.compile(setNum).matcher(s).matches());
+
+
         }
+
     }
 }

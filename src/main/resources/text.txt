@@ -1,10 +1,6 @@
-/**
-*文件描述*
-*ProductName : Hundsun HEP
-*ProjectName: light-operation-service*aPackage: com . hundsun.light .manager*aDescription:note
-*Author: zhouzf32074
-*@date: 2021/1/22 15:01*aUpdateUser:zhouzf32074aupdateDate: 2021/1/22 15:01
-*UpdateRemark: The modified contert*aversion: 1.0
-*Copyright  2021 Hundsun Technologies Inc. All Rights Reserved
-*/
+user":{"nick_name":null,"id":"8113285161288446","last_login_date":1617702204305,"personal_photo":"5c137609259cda784f70e7d8","identity_name":"1","email":"178@qq.com","module_switch":1,"login_name":"17826028758","validate_time":1649116800000,"company":"1","create_date":1610698484605,"phone":"17826028758","user_type":"0","team_info":"1"},"ip":"10.20.66.182","operator_code":"17826028758","token":"210ecf4a-cb44-4e64-a014-e52ebe77024d2","user_token":"210ecf4a-cb44-4e64-a014-e52ebe77024d2","hui_lock":0,"lightPlatformUserId":"8113285161288446"
 
+
+
+
+user":{"id":8113285161288446,"nick_name":null,"email":"178@qq.com","phone":"17826028758","personal_photo":"5c137609259cda784f70e7d8","user_status":null,"user_type":"0","hsid":"","qq_id":null,"resume":null,"weibo_id":null,"level":1,"point_val":0,"exp_val":0,"last_login_date":1617872930448,"last_logout_date":null,"create_date":1610698484605,"update_date":1617873511488,"last_login_ip":null,"identity_no":null,"identity_name":"1","identity_front":null,"identity_back":null,"identity_status":null,"identity_remark":null,"pw_err_count":0,"talk_auth":"0","comp_max_num":-1,"inst_max_num":-1,"app_max_num":-1,"native_comp_max_num":-1,"openAPI_num":-1,"login_name":"17826028758","is_bind_light":1,"is_del":0,"company":"1","team_info":"1","validate_time":1649116800000,"module_switch":0,"lconf_id":null,"user_source":"GTN","is_frozen":0},"ip":"10.20.66.182","operator_code":"17826028758","token":"210ecf4a-cb44-4e64-a014-e52ebe77024d2","user_token":"210ecf4a-cb44-4e64-a014-e52ebe77024d2","hui_lock":0,"lightPlatformUserId":"8113285161288446"}

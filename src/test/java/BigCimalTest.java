@@ -13,4 +13,10 @@ public class BigCimalTest {
     public void test(){
         System.out.println(new BigDecimal("1.333"));
     }
+    @Test
+    public void test02(){
+        System.out.println(Integer.MAX_VALUE);
+    }
+
+
 }
