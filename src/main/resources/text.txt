@@ -1,6 +1,1761 @@
-user":{"nick_name":null,"id":"8113285161288446","last_login_date":1617702204305,"personal_photo":"5c137609259cda784f70e7d8","identity_name":"1","email":"178@qq.com","module_switch":1,"login_name":"17826028758","validate_time":1649116800000,"company":"1","create_date":1610698484605,"phone":"17826028758","user_type":"0","team_info":"1"},"ip":"10.20.66.182","operator_code":"17826028758","token":"210ecf4a-cb44-4e64-a014-e52ebe77024d2","user_token":"210ecf4a-cb44-4e64-a014-e52ebe77024d2","hui_lock":0,"lightPlatformUserId":"8113285161288446"
+package com.hundsun.jrescloud.cache.api;
+
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import com.hundsun.jrescloud.cache.exception.BaseCacheException;
+
+public interface ICacheService {
+	/**
+	 * 使用default实例，执行覆盖式写入操作; key不合规时抛出{@link BaseCacheException};
+	 *
+	 * @param key
+	 *            数据id
+	 * @param value
+	 *            待插入数据
+	 * @return
+	 */
+	void put(Object key, Object value);
+
+	/**
+	 * 使用default实例，执行覆盖式写入操作,并为key设置过期时间; expiry以秒为单位,expiry
+	 * <0时,数据写入瞬间失效;expiry=0时数据永久有效;expiry>0时,经过指定的超时时间后,数据失效; key不合规时抛出
+	 * {@link BaseCacheException};
+	 *
+	 * @param key
+	 *            数据id
+	 * @param value
+	 *            待插入数据
+	 * @param expiry
+	 *            数据有效时间(秒)
+	 * @return
+	 */
+	void put(Object key, Object value, long expiry);
+
+	/**
+	 * 使用default实例，override为true,执行覆盖式写入操作;override为false,仅当key不存在时执行数据写入; key不合规时抛出
+	 * {@link BaseCacheException}; override为false,且当key已存在时,抛出
+	 * {@link BaseCacheException}
+	 *
+	 * @param key
+	 *            数据id
+	 * @param value
+	 *            待插入数据
+	 * @param override
+	 *            true表示覆盖写入,false表示非覆盖写入
+	 * @return
+	 */
+	void put(Object key, Object value, boolean override);
+
+	/**
+	 * 使用default实例，override为true,执行覆盖式写入操作并设置有效时间;override为false,仅当key不存在时执行数据写入并设置有效时间;
+	 * expiry以秒为单位,expiry<0时,数据写入瞬间失效;expiry=0时数据永久有效;expiry>0时,经过指定的超时时间后,数据失效;
+	 * key不合规时抛出{@link BaseCacheException}; override为false,且当key已存在时,抛出
+	 * {@link BaseCacheException}
+	 *
+	 * @param key
+	 *            数据id
+	 * @param value
+	 *            待插入数据
+	 * @param expiry
+	 *            数据有效时间(秒)
+	 * @param override
+	 *            true表示覆盖写入,false表示非覆盖写入
+	 * @return
+	 */
+	void put(Object key, Object value, long expiry, boolean override);
+
+	/**
+	 * 使用default实例，执行覆盖式序列化写入操作; key不合规时抛出{@link BaseCacheException};
+	 *
+	 * @param key
+	 *            数据id
+	 * @param value
+	 *            待插入数据，要求实现Serializable接口
+	 * @return
+	 */
+	void putSerialized(Object key, Object value);
+
+	/**
+	 * 使用default实例，执行覆盖式序列化写入操作,并为key设置过期时间; expiry以秒为单位,expiry
+	 * <0时,数据写入瞬间失效;expiry=0时数据永久有效;expiry>0时,经过指定的超时时间后,数据失效; key不合规时抛出
+	 * {@link BaseCacheException};
+	 *
+	 * @param key
+	 *            数据id
+	 * @param value
+	 *            待插入数据，要求实现Serializable接口
+	 * @param expiry
+	 *            数据有效时间(秒)
+	 * @return
+	 */
+	void putSerialized(Object key, Object value, long expiry);
+
+	/**
+	 * 使用default实例，override为true,执行覆盖式序列化写入操作;override为false,仅当key不存在时执行数据写入; key不合规时抛出
+	 * {@link BaseCacheException}; override为false,且当key已存在时,抛出
+	 * {@link BaseCacheException}
+	 *
+	 * @param key
+	 *            数据id
+	 * @param value
+	 *            待插入数据，要求实现Serializable接口
+	 * @param override
+	 *            true表示覆盖写入,false表示非覆盖写入
+	 * @return
+	 */
+	void putSerialized(Object key, Object value, boolean override);
+
+	/**
+	 * 使用default实例，override为true,执行覆盖式序列化写入操作并设置有效时间;override为false,仅当key不存在时执行数据写入并设置有效时间;
+	 * expiry以秒为单位,expiry<0时,数据写入瞬间失效;expiry=0时数据永久有效;expiry>0时,经过指定的超时时间后,数据失效;
+	 * key不合规时抛出{@link BaseCacheException}; override为false,且当key已存在时,抛出
+	 * {@link BaseCacheException}
+	 *
+	 * @param key
+	 *            数据id
+	 * @param value
+	 *            待插入数据，要求实现Serializable接口
+	 * @param expiry
+	 *            数据有效时间(秒)
+	 * @param override
+	 *            true表示覆盖写入,false表示非覆盖写入
+	 * @return
+	 */
+	void putSerialized(Object key, Object value, long expiry, boolean override);
+
+	/**
+	 * 使用default实例，在key现有值后追加value; 目前仅支持value类型为String的数据; key不存在时,创建并插入value; key不合规时抛出
+	 * {@link BaseCacheException};
+	 *
+	 * @param key
+	 *            数据id
+	 * @param value
+	 * @return 操作成功返回true,否则返回false
+	 */
+	void append(Object key, String value);
+
+	/**
+	 *使用default实例， 查询key的值并以指定类型返回; key不存在时返回null; key不合规时抛出{@link BaseCacheException};
+	 * 分布式缓存底层异常,日志记录异常信息并返回null
+	 */
+	<V> V get(Object key);
+
+	/**
+	 * 使用default实例，查询key的值并以指定类型返回; key不存在时返回null; key不合规时抛出{@link BaseCacheException};
+	 * 分布式缓存底层异常,日志记录异常信息并返回null
+	 */
+	<V> V get(Object key, Class<V> valueType);
+
+	/**
+	 * 使用default实例，查询key的值并以指定类型返回;
+	 * localCache为true时,从本地缓存中key的value,若本地缓存不存在指定key,从分布式缓存加载至本地;
+	 * localCache为false时,直接从分布式缓存获取; key不存在时返回null; key不合规时抛出
+	 * {@link BaseCacheException}; 分布式缓存底层异常,日志记录异常信息并返回false
+	 *
+	 * @param key
+	 *            数据id
+	 * @param localCache
+	 *            是否启用本地缓存
+	 * @return value
+	 */
+	<V> V get(Object key, Class<V> valueType, boolean localCache);
+
+	/**
+	 *使用default实例， 查询key的值并反序列化返回; key不存在时返回null; key不合规时抛出{@link BaseCacheException};
+	 * 分布式缓存底层异常,日志记录异常信息并返回null
+	 */
+	<V> V getSerialized(Object key);
+
+	/**
+	 * 使用default实例，查询key的值并反序列化返回;
+	 * localCache为true时,从本地缓存中key的value,若本地缓存不存在指定key,从分布式缓存加载至本地;
+	 * localCache为false时,直接从分布式缓存获取; key不存在时返回null; key不合规时抛出
+	 * {@link BaseCacheException}; 分布式缓存底层异常,日志记录异常信息并返回false
+	 *
+	 * @param key
+	 *            数据id
+	 * @param localCache
+	 *            是否启用本地缓存
+	 * @return value
+	 */
+	<V> V getSerialized(Object key, boolean localCache);
+
+	/**
+	 * 使用default实例，判断key是否存在; key不合规时抛出{@link BaseCacheException};
+	 * 分布式缓存底层异常,日志记录异常信息并返回false
+	 *
+	 * @param key
+	 *            数据id
+	 * @return key已存在返回true,否则返回false
+	 */
+	boolean exists(Object key);
+
+	/**
+	 * 使用default实例，返回指定key的剩余有效时间,以秒为单位; key不合规时抛出{@link BaseCacheException}; key不存在时抛出
+	 * {@link BaseCacheException}; 分布式缓存底层异常,日志记录异常信息并返回-1
+	 *
+	 * @param key
+	 *            数据id
+	 * @return 剩余有效时间
+	 */
+	long ttl(Object key);
+
+	/**
+	 * 使用default实例，更新指定key的过期时间,以秒为单位; expiry以秒为单位,expiry
+	 * <0时,数据写入瞬间失效;expiry=0时数据永久有效;expiry>0时,经过指定的超时时间后,数据失效; key不合规时抛出
+	 * {@link BaseCacheException}; key不存在时抛出{@link BaseCacheException};
+	 * 分布式缓存底层异常,日志记录异常信息并返回false
+	 *
+	 * @param key
+	 *            数据id
+	 * @param expiry
+	 *            有效时间
+	 * @return 更新成功返回true,否则返回false
+	 */
+	boolean updateExpires(Object key, long expiry);
+
+	/**
+	 * 使用default实例，重命名key,newKey已存在时,进行覆盖式重命名; oldKey or newKey不合规时抛出
+	 * {@link BaseCacheException}; oldKey不存在时抛出{@link BaseCacheException}
+	 * ; 分布式缓存底层异常,日志记录异常信息并返回false
+	 *
+	 * @param: oldKey
+	 * @param: newKey
+	 * @return 操作成功返回true,否则返回false
+	 */
+	boolean rename(Object oldKey, Object newKey);
+
+	/**
+	 * 使用default实例，重命名key,当override为true,newKey已存在时,进行覆盖式重命名;
+	 * 当override为false,newKey已存在时,抛出异常; oldKey or newKey不合规时抛出
+	 * {@link BaseCacheException}; oldKey不存在时抛出{@link BaseCacheException}
+	 * ; 当override为false且newKey已存在时抛出{@link BaseCacheException};
+	 * 分布式缓存底层异常,日志记录异常信息并返回false
+	 *
+	 * @param: oldKey
+	 * @param: newKey
+	 * @return 操作成功返回true,否则返回false
+	 */
+	boolean rename(Object oldKey, Object newKey, boolean override);
+
+	/**
+	 * 使用default实例，移除指定的key key不合规时抛出{@link BaseCacheException}; key不存在时抛出
+	 * {@link BaseCacheException}; 分布式缓存底层异常,日志记录异常信息
+	 *
+	 * @param key
+	 *            数据id
+	 * @return
+	 */
+	void evict(Object key);
+
+	/**
+	 * 使用default实例，清空所有数据; 分布式缓存底层异常,日志记录异常信息
+	 */
+	void clear();
+
+	/**
+	 * 使用default实例，释放连接资源; 分布式缓存底层异常,日志记录异常信息
+	 */
+	void close();
+
+	HSCacheManager getCacheManager(String name);
+
+	// collection相关操作
+	/**
+	 * 使用default实例，元素插入list尾部; key不合规时抛出{@link BaseCacheException};
+	 * 分布式缓存底层异常,日志记录异常信息并返回false
+	 *
+	 * @param key
+	 * @param element
+	 * @return 插入成功返回true,否则返回false
+	 */
+	<E> boolean listPush(String key, E element);
+
+	/**
+	 * 使用default实例，在list指定下标处插入元素; key不合规时抛出{@link BaseCacheException}; key不存在时抛出
+	 * {@link BaseCacheException}; index不合规时抛出
+	 * {@link BaseCacheException}; 分布式缓存底层异常,日志记录异常信息并返回false
+	 *
+	 * @param key
+	 * @param index
+	 *            待插入下标
+	 * @param element
+	 *            待插入元素
+	 * @return 插入成功返回true,否则返回false
+	 */
+	<E> boolean listSet(String key, int index, E element);
+
+	/**
+	 * 使用default实例，移除list首部元素; 指定元素不存在时返回false; key不合规时抛出{@link BaseCacheException};
+	 * key不存在时抛出{@link BaseCacheException}; index不合规时抛出
+	 * {@link BaseCacheException}; 分布式缓存底层异常,日志记录异常信息并返回null
+	 *
+	 * @param key
+	 * @return 设置成功返回true,否则返回false
+	 */
+	boolean listPop(String key);
+
+	/**
+	 * 使用default实例，移除list指定下标处元素; 指定元素不存在时返回false; key不合规时抛出{@link BaseCacheException};
+	 * key不存在时抛出{@link BaseCacheException}; index不合规时抛出
+	 * {@link BaseCacheException}; 分布式缓存底层异常,日志记录异常信息并返回null
+	 *
+	 * @param key
+	 * @param index
+	 * @return 移除成功返回true,否则返回false
+	 */
+	boolean listRemove(String key, int index);
+
+	/**
+	 * 使用default实例，获取list指定下标处的元素,并以指定类型返回,下标越界返回null; key不合规时抛出{@link BaseCacheException};
+	 * key不存在时抛出{@link BaseCacheException}; index不合规时抛出
+	 * {@link BaseCacheException}; 分布式缓存底层异常,日志记录异常信息并返回null
+	 *
+	 * @param key
+	 * @param index
+	 * @param elementType
+	 * @return 指定下标处的元素
+	 */
+	<E> E listGet(String key, int index, Class<E> elementType);
+
+	/**
+	 * 使用default实例，获取list
+	 *
+	 * @param key
+	 * @param elementType
+	 * @return 整个集合
+	 */
+	<E> List<E> listGet(String key, Class<E> elementType);
+
+	/**
+	 * 使用default实例，获取list指定下标处的元素,并以指定类型返回,下标越界返回null;
+	 * localCache为true时,从本地缓存中获取,若本地缓存不存在指定key,从分布式缓存加载至本地;
+	 * localCache为false时,直接从分布式缓存获取; key不合规时抛出{@link BaseCacheException};
+	 * key不存在时抛出{@link BaseCacheException}; index不合规时抛出
+	 * {@link BaseCacheException}; 分布式缓存底层异常,日志记录异常信息并返回null
+	 *
+	 * @param key
+	 * @param index
+	 *            元素下标
+	 * @param elementType
+	 *            元素类型
+	 * @param localCache
+	 *            是否启用本地缓存
+	 * @return 指定下标处的元素
+	 */
+	<E> E listGet(String key, int index, Class<E> elementType, boolean localCache);
+
+	/**
+	 * 使用default实例，返回指定元素在list中的下标,元素不存在返回-1; key不合规时抛出{@link BaseCacheException};
+	 * key不存在时抛出{@link BaseCacheException}; 分布式缓存底层异常,日志记录异常信息并返回-1
+	 *
+	 * @param key
+	 * @param element
+	 * @return 元素下标
+	 */
+	<E> int listIndexOf(String key, E element);
+
+	/**
+	 * 使用default实例，返回指定元素在list中的下标,元素不存在返回-1;
+	 * localCache为true时,从本地缓存中获取,若本地缓存不存在指定key,从分布式缓存加载至本地;
+	 * localCache为false时,直接从分布式缓存获取; key不合规时抛出{@link BaseCacheException};
+	 * key不存在时抛出{@link BaseCacheException}; 分布式缓存底层异常,日志记录异常信息并返回-1
+	 *
+	 * @param key
+	 * @param element
+	 * @return 元素下标
+	 */
+	<E> int listIndexOf(String key, E element, boolean localCache);
+
+	/**
+	 * 使用default实例，返回list内的元素个数; key不合规时抛出{@link BaseCacheException}; key不存在时抛出
+	 * {@link BaseCacheException}; 分布式缓存底层异常,日志记录异常信息并返回-1
+	 *
+	 * @param key
+	 * @return 元素数
+	 */
+	int listSize(String key);
+
+	/**
+	 * 使用default实例，返回list内的元素个数; localCache为true时,从本地缓存中获取,若本地缓存不存在指定key,从分布式缓存加载至本地;
+	 * localCache为false时,直接从分布式缓存获取; key不合规时抛出{@link BaseCacheException};
+	 * key不存在时抛出{@link BaseCacheException}; 分布式缓存底层异常,日志记录异常信息并返回-1
+	 *
+	 * @param key
+	 * @param localCache
+	 *            是否启用本地缓存
+	 * @return 元素数
+	 */
+	int listSize(String key, boolean localCache);
+
+	/**
+	 * 使用default实例，判断list中是否包含指定元素; key不合规时抛出{@link BaseCacheException}; key不存在时抛出
+	 * {@link BaseCacheException}; 分布式缓存底层异常,日志记录异常信息并返回false
+	 *
+	 * @param key
+	 * @param element
+	 * @return
+	 */
+	<E> boolean listContains(String key, E element);
+
+	/**
+	 * 使用default实例，判断list中是否包含指定元素; localCache为true时,从本地缓存中获取,若本地缓存不存在指定key,从分布式缓存加载至本地;
+	 * localCache为false时,直接从分布式缓存获取; key不合规时抛出{@link BaseCacheException};
+	 * key不存在时抛出{@link BaseCacheException}; 分布式缓存底层异常,日志记录异常信息并返回false
+	 *
+	 * @param key
+	 * @param element
+	 * @param localCache
+	 * @return
+	 */
+	<E> boolean listContains(String key, E element, boolean localCache);
+
+	/**
+	 * 使用default实例，存储map; key不合规时抛出{@link BaseCacheException}; 分布式缓存底层异常,日志记录异常信息并返回false
+	 *
+	 * @param key
+	 * @param map
+	 * @return 设置成功返回true,否则返回false
+	 */
+	<K, V> boolean mapSet(String key, Map<K, V> map);
+
+	/**
+	 * 使用default实例，map已存在时,为它添加字段和值;map不存在时,新建新的map key不合规时抛出{@link BaseCacheException};
+	 * 分布式缓存底层异常,日志记录异常信息并返回false
+	 *
+	 * @param key
+	 * @param field
+	 * @param value
+	 * @return 设置成功返回true,否则返回false
+	 */
+	<K, V> boolean mapAdd(String key, K field, V value);
+
+	/**
+	 * 使用default实例，移除map中的指定字段 key不合规时抛出{@link BaseCacheException}; key不存在时抛出
+	 * {@link BaseCacheException}; 分布式缓存底层异常,日志记录异常信息并返回-1
+	 *
+	 * @param key
+	 * @param fields
+	 *            待删除字段
+	 * @return 返回成功删除的字段数
+	 */
+	@SuppressWarnings("unchecked")
+	<K> long mapDel(String key, K... fields);
+
+	/**
+	 * 使用default实例，移除map中的所有字段<br> key不合规时抛出{@link BaseCacheException}; key不存在时抛出
+	 * {@link BaseCacheException}; 分布式缓存底层异常,日志记录异常信息并返回-1
+	 *
+	 * @param key
+	 * @return 返回成功删除的字段数
+	 */
+	long mapDel(String key);
+
+	/**
+	 * 使用default实例，获取map中指定字段的值,并以指定类型返回 key不合规时抛出{@link BaseCacheException}; key不存在时抛出
+	 * {@link BaseCacheException}; 分布式缓存底层异常,日志记录异常信息并返回null
+	 *
+	 * @param key
+	 * @param field
+	 * @param valueType
+	 *            value类型
+	 * @return 指定的value
+	 */
+	<K, V> V mapGet(String key, K field, Class<V> valueType);
+
+	/**
+	 * 使用default实例，获取map中指定字段的值,并以指定类型返回
+	 * localCache为true时,从本地缓存中获取,若本地缓存不存在指定key,从分布式缓存加载至本地;
+	 * localCache为false时,直接从分布式缓存获取; key不合规时抛出{@link BaseCacheException};
+	 * key不存在时抛出{@link BaseCacheException}; 分布式缓存底层异常,日志记录异常信息并返回null
+	 *
+	 * @param key
+	 * @param field
+	 * @param valueType
+	 *            value类型
+	 * @param localCache
+	 *            是否启用本地缓存
+	 * @return 指定的value
+	 */
+	<K, V> V mapGet(String key, K field, Class<V> valueType, boolean localCache);
+
+	/**
+	 * 使用default实例，获取指定map,并以指定格式返回 key不合规时抛出{@link BaseCacheException}; key不存在时抛出
+	 * {@link BaseCacheException}; 分布式缓存底层异常,日志记录异常信息并返回null
+	 *
+	 * @param key
+	 * @param valueType
+	 *            value类型
+	 * @return 指定的map
+	 */
+	<K, V> Map<K, V> mapGet(String key, Class<K> fieldType, Class<V> valueType);
+
+	/**
+	 * 使用default实例，获取指定map,并以指定格式返回 localCache为true时,从本地缓存中获取,若本地缓存不存在指定key,从分布式缓存加载至本地;
+	 * localCache为false时,直接从分布式缓存获取; key不合规时抛出{@link BaseCacheException};
+	 * key不存在时抛出{@link BaseCacheException}; 分布式缓存底层异常,日志记录异常信息并返回null
+	 *
+	 * @param key
+	 * @param valueType
+	 *            value类型
+	 * @param localCache
+	 *            是否启用本地缓存
+	 * @return 指定的map
+	 */
+	<K, V> Map<K, V> mapGet(String key, Class<K> fieldType, Class<V> valueType, boolean localCache);
+
+	/**
+	 * 使用default实例，获取map中的字段数; key不合规时抛出{@link BaseCacheException}; key不存在时抛出
+	 * {@link BaseCacheException}; 分布式缓存底层异常,日志记录异常信息并返回-1
+	 *
+	 * @param key
+	 * @return map的大小
+	 */
+	int mapSize(String key);
+
+	/**
+	 * 使用default实例，获取map中的字段数; localCache为true时,从本地缓存中获取,若本地缓存不存在指定key,从分布式缓存获取;
+	 * localCache为false时,直接从分布式缓存获取; key不合规时抛出{@link BaseCacheException};
+	 * key不存在时抛出{@link BaseCacheException}; 分布式缓存底层异常,日志记录异常信息并返回-1
+	 *
+	 * @param key
+	 * @param localCache
+	 *            是否启用本地缓存
+	 * @return map的大小
+	 */
+	int mapSize(String key, boolean localCache);
+
+	/**
+	 * 使用default实例，判断map中是否存在指定字段 key不合规时抛出{@link BaseCacheException}; key不存在时抛出
+	 * {@link BaseCacheException}; 分布式缓存底层异常,日志记录异常信息并返回false
+	 *
+	 * @param key
+	 * @param field
+	 * @return 是否存在指定字段
+	 */
+	<K> boolean mapContainsField(String key, K field);
+
+	/**
+	 * 使用default实例，判断map中是否存在指定字段 localCache为true时,从本地缓存中获取,若本地缓存不存在指定key,从分布式缓存获取;
+	 * localCache为false时,直接从分布式缓存获取; key不合规时抛出{@link BaseCacheException};
+	 * key不存在时抛出{@link BaseCacheException}; 分布式缓存底层异常,日志记录异常信息并返回false
+	 *
+	 * @param key
+	 * @param field
+	 * @return 是否存在指定字段
+	 */
+	<K> boolean mapContainsField(String key, K field, boolean localCache);
+
+	/**
+	 * 使用default实例，判断map中是否存在指定的值 key不合规时抛出{@link BaseCacheException}; key不存在时抛出
+	 * {@link BaseCacheException}; 分布式缓存底层异常,日志记录异常信息并返回false
+	 *
+	 * @param key
+	 * @param value
+	 * @return
+	 */
+	<V> boolean mapContainsValue(String key, V value);
+
+	/**
+	 * 使用default实例，判断map中是否存在指定的值 localCache为true时,从本地缓存中获取,若本地缓存不存在指定key,从分布式缓存获取;
+	 * localCache为false时,直接从分布式缓存获取; key不合规时抛出{@link BaseCacheException};
+	 * key不存在时抛出{@link BaseCacheException}; 分布式缓存底层异常,日志记录异常信息并返回false
+	 *
+	 * @param key
+	 * @param value
+	 * @param localCache
+	 * @return
+	 */
+	<V> boolean mapContainsValue(String key, V value, boolean localCache);
+
+	/**
+	 * 使用default实例，将map中字段field的值递增指定的步长dela field不存在时先设置初始值为0的field，再递增步长dela; key不合规时抛出
+	 * {@link BaseCacheException}; key不存在时抛出{@link BaseCacheException};
+	 * 分布式缓存底层异常,日志记录异常信息并返回-1
+	 *
+	 * @param key
+	 * @param field
+	 * @param dela
+	 * @return double
+	 */
+	<K> double mapCounter(String key, K field, double dela);
+
+	/**
+	 * 使用default实例，返回map中指定fields对应的value集合,并以指定类型返回 key不合规时抛出{@link BaseCacheException};
+	 * key不存在时抛出{@link BaseCacheException}; 分布式缓存底层异常,日志记录异常信息并返回null
+	 *
+	 * @param key
+	 * @param valueType
+	 * @param fields
+	 * @return List<V>
+	 */
+	@SuppressWarnings("unchecked")
+	<K, V> List<V> mapGet(String key, Class<V> valueType, K... fields);
+
+	/**
+	 * 使用default实例，返回map中指定fields对应的value集合,并以指定类型返回
+	 * localCache为true时,从本地缓存中获取,若本地缓存不存在指定key,从分布式缓存获取;
+	 * localCache为false时,直接从分布式缓存获取; key不合规时抛出{@link BaseCacheException};
+	 * key不存在时抛出{@link BaseCacheException}; 分布式缓存底层异常,日志记录异常信息并返回null
+	 *
+	 * @param key
+	 * @param valueType
+	 * @param fields
+	 * @return List<V>
+	 */
+	@SuppressWarnings("unchecked")
+	<K, V> List<V> mapGet(String key, boolean localCache, Class<V> valueType, K... fields);
+
+	/**
+	 * 使用default实例，向set中添加元素element key不合规时抛出{@link BaseCacheException};
+	 * 分布式缓存底层异常,日志记录异常信息并返回false
+	 *
+	 * @param key
+	 * @param element
+	 * @return 操作成功返回true,否则返回false
+	 */
+	<E> boolean setAdd(String key, E element);
+
+	/**
+	 * 使用default实例，移除set中的指定元素; 指定元素不存在时返回false; key不合规时抛出{@link BaseCacheException};
+	 * key不存在时抛出{@link BaseCacheException}; 分布式缓存底层异常,日志记录异常信息并返回false
+	 *
+	 * @param key
+	 * @param element
+	 * @return 移除成功返回true,否则返回false
+	 */
+	<E> boolean setRemove(String key, E element);
+
+	/**
+	 * 使用default实例，判断set中是否包含指定元素 key不合规时抛出{@link BaseCacheException}; key不存在时抛出
+	 * {@link BaseCacheException}; 分布式缓存底层异常,日志记录异常信息并返回false
+	 *
+	 * @param key
+	 * @param element
+	 * @return 操作成功返回true,否则返回false
+	 */
+	<E> boolean setContains(String key, E element);
+
+	/**
+	 * 使用default实例，判断set中是否包含指定元素; localCache为true时,从本地缓存中获取,若本地缓存不存在指定key,从分布式缓存加载至本地;
+	 * localCache为false时,直接从分布式缓存获取; key不合规时抛出{@link BaseCacheException};
+	 * key不存在时抛出{@link BaseCacheException}; 分布式缓存底层异常,日志记录异常信息并返回false
+	 *
+	 * @param key
+	 * @param element
+	 * @param localCache
+	 *            是否启用本地缓存
+	 * @return
+	 */
+	<E> boolean setContains(String key, E element, boolean localCache);
+
+	/**
+	 * 使用default实例，返回set中的元素个数; key不合规时抛出{@link BaseCacheException}; key不存在时抛出
+	 * {@link BaseCacheException}; 分布式缓存底层异常,日志记录异常信息并返回-1
+	 *
+	 * @param key
+	 * @return 元素个数
+	 */
+	int setSize(String key);
+
+	/**
+	 * 使用default实例，返回set中的元素个数; localCache为true时,从本地缓存中获取,若本地缓存不存在指定key,从分布式缓存获取;
+	 * localCache为false时,直接从分布式缓存获取; key不合规时抛出{@link BaseCacheException};
+	 * key不存在时抛出{@link BaseCacheException}; 分布式缓存底层异常,日志记录异常信息并返回-1
+	 *
+	 * @param key
+	 * @param localCache
+	 *            是否启用本地缓存
+	 * @return 元素个数
+	 */
+	int setSize(String key, boolean localCache);
+
+	/**
+	 * 使用default实例，以指定类型返回set; key不合规时抛出{@link BaseCacheException}; key不存在时抛出
+	 * {@link BaseCacheException}; 分布式缓存底层异常,日志记录异常信息并返回null
+	 *
+	 * @param key
+	 * @return set
+	 */
+	<E> Set<E> setGet(String key, Class<E> elementType);
+
+	/**
+	 * 使用default实例，以指定类型返回set; localCache为true时,从本地缓存中获取,若本地缓存不存在指定key,从分布式缓存加载至本地;
+	 * localCache为false时,直接从分布式缓存获取; key不合规时抛出{@link BaseCacheException};
+	 * key不存在时抛出{@link BaseCacheException}; 分布式缓存底层异常,日志记录异常信息并返回null
+	 *
+	 * @param key
+	 * @param localCache
+	 *            是否启用本地缓存
+	 * @return set
+	 */
+	<E> Set<E> setGet(String key, Class<E> elementType, boolean localCache);
+
+	// 计数器相关操作
+	/**
+	 * 使用default实例，若计数器存在:将指定计数器的值加1后返回;若计数器不存在:创建初始值为1,有效期为永久的计数器,将计数器的初始值返回; key不合规时抛出
+	 * {@link BaseCacheException}; 分布式缓存底层异常,日志记录异常信息并返回-1
+	 *
+	 * @param key
+	 * @return 计数器的值
+	 */
+	long counter(String key);
+
+	/**
+	 * 使用default实例，若计数器存在:将计数器的值加dela后返回;若计数器不存在:创建初始值为1,有效期为永久的计数器,将计数器的初始值返回; key不合规时抛出
+	 * {@link BaseCacheException}; 分布式缓存底层异常,日志记录异常信息并返回-1
+	 *
+	 * @param key
+	 * @param dela
+	 *            步长,递增为正,递减为负
+	 * @return 计数器的值
+	 */
+	long counter(String key, long dela);
+
+	/**
+	 * 使用default实例，若计数器存在:将计数器的值加dala后返回;若计数器不存在:创建初始值为initial,有效期为永久的计数器,将计数器的初始值返回;
+	 * key不合规时抛出{@link BaseCacheException}; 分布式缓存底层异常,日志记录异常信息并返回-1
+	 *
+	 * @param key
+	 * @param dela
+	 *            步长,递增为正,递减为负
+	 * @param initial
+	 *            计数器初始值
+	 * @return 计数器的值
+	 */
+	long counter(String key, long dela, long initial);
+
+	/**
+	 * 使用default实例，若计数器存在:将计数器的值加dala后返回;若计数器不存在:创建初始值为initial,有效期为expiry秒的计数器,将计数器的初始值返回;
+	 * key不合规时抛出{@link BaseCacheException}; 分布式缓存底层异常,日志记录异常信息并返回-1
+	 *
+	 * @param key
+	 * @param dela
+	 *            步长,递增为正,递减为负
+	 * @param initial
+	 *            计数器初始值
+	 * @param expiry
+	 *            计数器有效期
+	 * @return
+	 */
+	long counter(String key, long dela, long initial, long expiry);
+
+	/**
+	 * 使用default实例，若计数器存在:将计数器的值加dela后返回;若计数器不存在:创建初始值为1,有效期为永久的计数器,将计数器的初始值返回; key不合规时抛出
+	 * {@link BaseCacheException}; 分布式缓存底层异常,日志记录异常信息并返回-1
+	 *
+	 * @param key
+	 * @param dela
+	 *            步长,递增为正,递减为负
+	 * @return 计数器的值
+	 */
+	double counter(String key, double dela);
+
+	/**
+	 * 使用default实例，若计数器存在:将计数器的值加dala后返回;若计数器不存在:创建初始值为initial,有效期为永久的计数器,将计数器的初始值返回;
+	 * key不合规时抛出{@link BaseCacheException}; 分布式缓存底层异常,日志记录异常信息并返回-1
+	 *
+	 * @param key
+	 * @param dela
+	 *            步长,递增为正,递减为负
+	 * @param initial
+	 *            计数器初始值
+	 * @return 计数器的值
+	 */
+	double counter(String key, double dela, double initial);
+
+	/**
+	 * 使用default实例，若计数器存在:将计数器的值加dala后返回;若计数器不存在:创建初始值为initial,有效期为expiry秒的计数器,将计数器的初始值返回;
+	 * key不合规时抛出{@link BaseCacheException}; 分布式缓存底层异常,日志记录异常信息并返回-1
+	 *
+	 * @param key
+	 * @param dela
+	 *            步长,递增为正,递减为负
+	 * @param initial
+	 *            计数器初始值
+	 * @param expiry
+	 *            计数器有效期
+	 * @return
+	 */
+	double counter(String key, double dela, double initial, long expiry);
+
+	/**
+	 * 执行覆盖式写入操作; key不合规时抛出{@link BaseCacheException};
+	 *
+	 * @param instanceId
+	 *            实例标识
+	 *
+	 * @param key
+	 *            数据id
+	 * @param value
+	 *            待插入数据
+	 * @return
+	 */
+	void putForInstance(String instanceId, Object key, Object value);
+
+	/**
+	 * 执行覆盖式写入操作,并为key设置过期时间; expiry以秒为单位,expiry
+	 * <0时,数据写入瞬间失效;expiry=0时数据永久有效;expiry>0时,经过指定的超时时间后,数据失效; key不合规时抛出
+	 * {@link BaseCacheException};
+	 *
+	 * @param instanceId
+	 *            实例标识
+	 *
+	 * @param key
+	 *            数据id
+	 * @param value
+	 *            待插入数据
+	 * @param expiry
+	 *            数据有效时间(秒)
+	 * @return
+	 */
+	void putForInstance(String instanceId, Object key, Object value, long expiry);
+
+	/**
+	 * override为true,执行覆盖式写入操作;override为false,仅当key不存在时执行数据写入; key不合规时抛出
+	 * {@link BaseCacheException}; override为false,且当key已存在时,抛出
+	 * {@link BaseCacheException}
+	 *
+	 * @param instanceId
+	 *            实例标识
+	 *
+	 * @param key
+	 *            数据id
+	 * @param value
+	 *            待插入数据
+	 * @param override
+	 *            true表示覆盖写入,false表示非覆盖写入
+	 * @return
+	 */
+	void putForInstance(String instanceId, Object key, Object value, boolean override);
+
+	/**
+	 * override为true,执行覆盖式写入操作并设置有效时间;override为false,仅当key不存在时执行数据写入并设置有效时间;
+	 * expiry以秒为单位,expiry<0时,数据写入瞬间失效;expiry=0时数据永久有效;expiry>0时,经过指定的超时时间后,数据失效;
+	 * key不合规时抛出{@link BaseCacheException}; override为false,且当key已存在时,抛出
+	 * {@link BaseCacheException}
+	 *
+	 * @param instanceId
+	 *            实例标识
+	 *
+	 * @param key
+	 *            数据id
+	 * @param value
+	 *            待插入数据
+	 * @param expiry
+	 *            数据有效时间(秒)
+	 * @param override
+	 *            true表示覆盖写入,false表示非覆盖写入
+	 * @return
+	 */
+	void putForInstance(String instanceId, Object key, Object value, long expiry, boolean override);
+
+	/**
+	 * 执行覆盖式序列化写入操作; key不合规时抛出{@link BaseCacheException};
+	 *
+	 * @param instanceId
+	 *            实例标识
+	 *
+	 * @param key
+	 *            数据id
+	 * @param value
+	 *            待插入数据，要求实现Serializable接口
+	 * @return
+	 */
+	void putSerializedForInstance(String instanceId, Object key, Object value);
+
+	/**
+	 * 执行覆盖式序列化写入操作,并为key设置过期时间; expiry以秒为单位,expiry
+	 * <0时,数据写入瞬间失效;expiry=0时数据永久有效;expiry>0时,经过指定的超时时间后,数据失效; key不合规时抛出
+	 * {@link BaseCacheException};
+	 *
+	 * @param instanceId
+	 *            实例标识
+	 *
+	 * @param key
+	 *            数据id
+	 * @param value
+	 *            待插入数据，要求实现Serializable接口
+	 * @param expiry
+	 *            数据有效时间(秒)
+	 * @return
+	 */
+	void putSerializedForInstance(String instanceId, Object key, Object value, long expiry);
+
+	/**
+	 * override为true,执行覆盖式序列化写入操作;override为false,仅当key不存在时执行数据写入; key不合规时抛出
+	 * {@link BaseCacheException}; override为false,且当key已存在时,抛出
+	 * {@link BaseCacheException}
+	 *
+	 * @param instanceId
+	 *            实例标识
+	 *
+	 * @param key
+	 *            数据id
+	 * @param value
+	 *            待插入数据，要求实现Serializable接口
+	 * @param override
+	 *            true表示覆盖写入,false表示非覆盖写入
+	 * @return
+	 */
+	void putSerializedForInstance(String instanceId, Object key, Object value, boolean override);
+
+	/**
+	 * override为true,执行覆盖式序列化写入操作并设置有效时间;override为false,仅当key不存在时执行数据写入并设置有效时间;
+	 * expiry以秒为单位,expiry<0时,数据写入瞬间失效;expiry=0时数据永久有效;expiry>0时,经过指定的超时时间后,数据失效;
+	 * key不合规时抛出{@link BaseCacheException}; override为false,且当key已存在时,抛出
+	 * {@link BaseCacheException}
+	 *
+	 * @param instanceId
+	 *            实例标识
+	 *
+	 * @param key
+	 *            数据id
+	 * @param value
+	 *            待插入数据，要求实现Serializable接口
+	 * @param expiry
+	 *            数据有效时间(秒)
+	 * @param override
+	 *            true表示覆盖写入,false表示非覆盖写入
+	 * @return
+	 */
+	void putSerializedForInstance(String instanceId, Object key, Object value, long expiry, boolean override);
+
+	/**
+	 * 在key现有值后追加value; 目前仅支持value类型为String的数据; key不存在时,创建并插入value; key不合规时抛出
+	 * {@link BaseCacheException};
+	 *
+	 * @param instanceId
+	 *            实例标识
+	 *
+	 * @param key
+	 *            数据id
+	 * @param value
+	 * @return 操作成功返回true,否则返回false
+	 */
+	void appendForInstance(String instanceId, Object key, String value);
+
+	/**
+	 * 查询key的值并以指定类型返回; key不存在时返回null; key不合规时抛出{@link BaseCacheException};
+	 * 分布式缓存底层异常,日志记录异常信息并返回null
+	 *
+	 * @param instanceId
+	 *            实例标识
+	 */
+	<V> V getForInstance(String instanceId, Object key);
+
+	/**
+	 * 查询key的值并以指定类型返回; key不存在时返回null; key不合规时抛出{@link BaseCacheException};
+	 * 分布式缓存底层异常,日志记录异常信息并返回null
+	 *
+	 * @param instanceId
+	 *            实例标识
+	 */
+	<V> V getForInstance(String instanceId, Object key, Class<V> valueType);
+
+	/**
+	 * 查询key的值并以指定类型返回;
+	 * localCache为true时,从本地缓存中key的value,若本地缓存不存在指定key,从分布式缓存加载至本地;
+	 * localCache为false时,直接从分布式缓存获取; key不存在时返回null; key不合规时抛出
+	 * {@link BaseCacheException}; 分布式缓存底层异常,日志记录异常信息并返回false
+	 *
+	 * @param instanceId
+	 *            实例标识
+	 *
+	 * @param key
+	 *            数据id
+	 * @param localCache
+	 *            是否启用本地缓存
+	 * @return value
+	 */
+	<V> V getForInstance(String instanceId, Object key, Class<V> valueType, boolean localCache);
 
 
+	/**
+	 * 查询key的值并反序列化返回; key不存在时返回null; key不合规时抛出{@link BaseCacheException};
+	 * 分布式缓存底层异常,日志记录异常信息并返回null
+	 *
+	 * @param instanceId
+	 *            实例标识
+	 */
+	<V> V getSerializedForInstance(String instanceId, Object key);
 
 
-user":{"id":8113285161288446,"nick_name":null,"email":"178@qq.com","phone":"17826028758","personal_photo":"5c137609259cda784f70e7d8","user_status":null,"user_type":"0","hsid":"","qq_id":null,"resume":null,"weibo_id":null,"level":1,"point_val":0,"exp_val":0,"last_login_date":1617872930448,"last_logout_date":null,"create_date":1610698484605,"update_date":1617873511488,"last_login_ip":null,"identity_no":null,"identity_name":"1","identity_front":null,"identity_back":null,"identity_status":null,"identity_remark":null,"pw_err_count":0,"talk_auth":"0","comp_max_num":-1,"inst_max_num":-1,"app_max_num":-1,"native_comp_max_num":-1,"openAPI_num":-1,"login_name":"17826028758","is_bind_light":1,"is_del":0,"company":"1","team_info":"1","validate_time":1649116800000,"module_switch":0,"lconf_id":null,"user_source":"GTN","is_frozen":0},"ip":"10.20.66.182","operator_code":"17826028758","token":"210ecf4a-cb44-4e64-a014-e52ebe77024d2","user_token":"210ecf4a-cb44-4e64-a014-e52ebe77024d2","hui_lock":0,"lightPlatformUserId":"8113285161288446"}
+	/**
+	 * 查询key的值并反序列化返回;
+	 * localCache为true时,从本地缓存中key的value,若本地缓存不存在指定key,从分布式缓存加载至本地;
+	 * localCache为false时,直接从分布式缓存获取; key不存在时返回null; key不合规时抛出
+	 * {@link BaseCacheException}; 分布式缓存底层异常,日志记录异常信息并返回false
+	 *
+	 * @param instanceId
+	 *            实例标识
+	 *
+	 * @param key
+	 *            数据id
+	 * @param localCache
+	 *            是否启用本地缓存
+	 * @return value
+	 */
+	<V> V getSerializedForInstance(String instanceId, Object key, boolean localCache);
+
+	/**
+	 * 判断key是否存在; key不合规时抛出{@link BaseCacheException};
+	 * 分布式缓存底层异常,日志记录异常信息并返回false
+	 *
+	 * @param instanceId
+	 *            实例标识
+	 *
+	 * @param key
+	 *            数据id
+	 * @return key已存在返回true,否则返回false
+	 */
+	boolean existsForInstance(String instanceId, Object key);
+
+	/**
+	 * 返回指定key的剩余有效时间,以秒为单位; key不合规时抛出{@link BaseCacheException}; key不存在时抛出
+	 * {@link BaseCacheException}; 分布式缓存底层异常,日志记录异常信息并返回-1
+	 *
+	 * @param instanceId
+	 *            实例标识
+	 *
+	 * @param key
+	 *            数据id
+	 * @return 剩余有效时间
+	 */
+	long ttlForInstance(String instanceId, Object key);
+
+	/**
+	 * 更新指定key的过期时间,以秒为单位; expiry以秒为单位,expiry
+	 * <0时,数据写入瞬间失效;expiry=0时数据永久有效;expiry>0时,经过指定的超时时间后,数据失效; key不合规时抛出
+	 * {@link BaseCacheException}; key不存在时抛出{@link BaseCacheException};
+	 * 分布式缓存底层异常,日志记录异常信息并返回false
+	 *
+	 * @param instanceId
+	 *            实例标识
+	 *
+	 * @param key
+	 *            数据id
+	 * @param expiry
+	 *            有效时间
+	 * @return 更新成功返回true,否则返回false
+	 */
+	boolean updateExpiresForInstance(String instanceId, Object key, long expiry);
+
+	/**
+	 * 重命名key,newKey已存在时,进行覆盖式重命名; oldKey or newKey不合规时抛出
+	 * {@link BaseCacheException}; oldKey不存在时抛出{@link BaseCacheException}
+	 * ; 分布式缓存底层异常,日志记录异常信息并返回false
+	 *
+	 * @param instanceId
+	 *            实例标识
+	 *
+	 * @param: oldKey
+	 * @param: newKey
+	 * @return 操作成功返回true,否则返回false
+	 */
+	boolean renameForInstance(String instanceId, Object oldKey, Object newKey);
+
+	/**
+	 * 重命名key,当override为true,newKey已存在时,进行覆盖式重命名;
+	 * 当override为false,newKey已存在时,抛出异常; oldKey or newKey不合规时抛出
+	 * {@link BaseCacheException}; oldKey不存在时抛出{@link BaseCacheException}
+	 * ; 当override为false且newKey已存在时抛出{@link BaseCacheException};
+	 * 分布式缓存底层异常,日志记录异常信息并返回false
+	 *
+	 * @param instanceId
+	 *            实例标识
+	 *
+	 * @param: oldKey
+	 * @param: newKey
+	 * @return 操作成功返回true,否则返回false
+	 */
+	boolean renameForInstance(String instanceId, Object oldKey, Object newKey, boolean override);
+
+	/**
+	 * 移除指定的key key不合规时抛出{@link BaseCacheException}; key不存在时抛出
+	 * {@link BaseCacheException}; 分布式缓存底层异常,日志记录异常信息
+	 *
+	 * @param instanceId
+	 *            实例标识
+	 *
+	 * @param key
+	 *            数据id
+	 * @return
+	 */
+	void evictForInstance(String instanceId, Object key);
+
+	/**
+	 * 清空所有数据; 分布式缓存底层异常,日志记录异常信息
+	 *
+	 * @param instanceId
+	 *            实例标识
+	 */
+	void clearForInstance(String instanceId);
+
+	/**
+	 * 释放连接资源; 分布式缓存底层异常,日志记录异常信息
+	 *
+	 * @param instanceId
+	 *            实例标识
+	 */
+	void closeForInstance(String instanceId);
+
+	// collection相关操作
+	/**
+	 * 元素插入list尾部; key不合规时抛出{@link BaseCacheException};
+	 * 分布式缓存底层异常,日志记录异常信息并返回false
+	 *
+	 * @param instanceId
+	 *            实例标识
+	 *
+	 * @param key
+	 * @param element
+	 * @return 插入成功返回true,否则返回false
+	 */
+	<E> boolean listPushForInstance(String instanceId, String key, E element);
+
+	/**
+	 * 在list指定下标处插入元素; key不合规时抛出{@link BaseCacheException}; key不存在时抛出
+	 * {@link BaseCacheException}; index不合规时抛出
+	 * {@link BaseCacheException}; 分布式缓存底层异常,日志记录异常信息并返回false
+	 *
+	 * @param instanceId
+	 *            实例标识
+	 *
+	 * @param key
+	 * @param index
+	 *            待插入下标
+	 * @param element
+	 *            待插入元素
+	 * @return 插入成功返回true,否则返回false
+	 */
+	<E> boolean listSetForInstance(String instanceId, String key, int index, E element);
+
+	/**
+	 * 移除list首部元素; 指定元素不存在时返回false; key不合规时抛出{@link BaseCacheException};
+	 * key不存在时抛出{@link BaseCacheException}; index不合规时抛出
+	 * {@link BaseCacheException}; 分布式缓存底层异常,日志记录异常信息并返回null
+	 *
+	 * @param instanceId
+	 *            实例标识
+	 *
+	 * @param key
+	 * @return 设置成功返回true,否则返回false
+	 */
+	boolean listPopForInstance(String instanceId, String key);
+
+	/**
+	 * 移除list指定下标处元素; 指定元素不存在时返回false; key不合规时抛出{@link BaseCacheException};
+	 * key不存在时抛出{@link BaseCacheException}; index不合规时抛出
+	 * {@link BaseCacheException}; 分布式缓存底层异常,日志记录异常信息并返回null
+	 *
+	 * @param instanceId
+	 *            实例标识
+	 *
+	 * @param key
+	 * @param index
+	 * @return 移除成功返回true,否则返回false
+	 */
+	boolean listRemoveForInstance(String instanceId, String key, int index);
+
+	/**
+	 * 获取list指定下标处的元素,并以指定类型返回,下标越界返回null; key不合规时抛出{@link BaseCacheException};
+	 * key不存在时抛出{@link BaseCacheException}; index不合规时抛出
+	 * {@link BaseCacheException}; 分布式缓存底层异常,日志记录异常信息并返回null
+	 *
+	 * @param instanceId
+	 *            实例标识
+	 *
+	 * @param key
+	 * @param index
+	 * @param elementType
+	 * @return 指定下标处的元素
+	 */
+	<E> E listGetForInstance(String instanceId, String key, int index, Class<E> elementType);
+
+	/**
+	 * 获取list指定下标处的元素,并以指定类型返回,下标越界返回null;
+	 * localCache为true时,从本地缓存中获取,若本地缓存不存在指定key,从分布式缓存加载至本地;
+	 * localCache为false时,直接从分布式缓存获取; key不合规时抛出{@link BaseCacheException};
+	 * key不存在时抛出{@link BaseCacheException}; index不合规时抛出
+	 * {@link BaseCacheException}; 分布式缓存底层异常,日志记录异常信息并返回null
+	 *
+	 * @param instanceId
+	 *            实例标识
+	 *
+	 * @param key
+	 * @param index
+	 *            元素下标
+	 * @param elementType
+	 *            元素类型
+	 * @param localCache
+	 *            是否启用本地缓存
+	 * @return 指定下标处的元素
+	 */
+	<E> E listGetForInstance(String instanceId, String key, int index, Class<E> elementType, boolean localCache);
+
+	/**
+	 * 获取list全部元素 key不合规时抛出{@link BaseCacheException}; key不存在时抛出
+	 * {@link BaseCacheException}; index不合规时抛出
+	 * {@link BaseCacheException}; 分布式缓存底层异常,日志记录异常信息并返回null
+	 *
+	 * @param instanceId
+	 *            实例标识
+	 *
+	 * @param key
+	 * @param elementType
+	 * @param elementType
+	 * @return 指定下标处的元素
+	 */
+	<E> List<E> listGetForInstance(String instanceId, String key, Class<E> elementType);
+
+	/**
+	 * 返回指定元素在list中的下标,元素不存在返回-1; key不合规时抛出{@link BaseCacheException};
+	 * key不存在时抛出{@link BaseCacheException}; 分布式缓存底层异常,日志记录异常信息并返回-1
+	 *
+	 * @param instanceId
+	 *            实例标识
+	 *
+	 * @param key
+	 * @param element
+	 * @return 元素下标
+	 */
+	<E> int listIndexOfForInstance(String instanceId, String key, E element);
+
+	/**
+	 * 返回指定元素在list中的下标,元素不存在返回-1;
+	 * localCache为true时,从本地缓存中获取,若本地缓存不存在指定key,从分布式缓存加载至本地;
+	 * localCache为false时,直接从分布式缓存获取; key不合规时抛出{@link BaseCacheException};
+	 * key不存在时抛出{@link BaseCacheException}; 分布式缓存底层异常,日志记录异常信息并返回-1
+	 *
+	 * @param instanceId
+	 *            实例标识
+	 *
+	 * @param key
+	 * @param element
+	 * @return 元素下标
+	 */
+	<E> int listIndexOfForInstance(String instanceId, String key, E element, boolean localCache);
+
+	/**
+	 * 返回list内的元素个数; key不合规时抛出{@link BaseCacheException}; key不存在时抛出
+	 * {@link BaseCacheException}; 分布式缓存底层异常,日志记录异常信息并返回-1
+	 *
+	 * @param instanceId
+	 *            实例标识
+	 *
+	 * @param key
+	 * @return 元素数
+	 */
+	int listSizeForInstance(String instanceId, String key);
+
+	/**
+	 * 返回list内的元素个数; localCache为true时,从本地缓存中获取,若本地缓存不存在指定key,从分布式缓存加载至本地;
+	 * localCache为false时,直接从分布式缓存获取; key不合规时抛出{@link BaseCacheException};
+	 * key不存在时抛出{@link BaseCacheException}; 分布式缓存底层异常,日志记录异常信息并返回-1
+	 *
+	 * @param instanceId
+	 *            实例标识
+	 *
+	 * @param key
+	 * @param localCache
+	 *            是否启用本地缓存
+	 * @return 元素数
+	 */
+	int listSizeForInstance(String instanceId, String key, boolean localCache);
+
+	/**
+	 * 判断list中是否包含指定元素; key不合规时抛出{@link BaseCacheException}; key不存在时抛出
+	 * {@link BaseCacheException}; 分布式缓存底层异常,日志记录异常信息并返回false
+	 *
+	 * @param instanceId
+	 *            实例标识
+	 *
+	 * @param key
+	 * @param element
+	 * @return
+	 */
+	<E> boolean listContainsForInstance(String instanceId, String key, E element);
+
+	/**
+	 * 判断list中是否包含指定元素; localCache为true时,从本地缓存中获取,若本地缓存不存在指定key,从分布式缓存加载至本地;
+	 * localCache为false时,直接从分布式缓存获取; key不合规时抛出{@link BaseCacheException};
+	 * key不存在时抛出{@link BaseCacheException}; 分布式缓存底层异常,日志记录异常信息并返回false
+	 *
+	 * @param instanceId
+	 *            实例标识
+	 *
+	 * @param key
+	 * @param element
+	 * @param localCache
+	 * @return
+	 */
+	<E> boolean listContainsForInstance(String instanceId, String key, E element, boolean localCache);
+
+	/**
+	 * 存储map; key不合规时抛出{@link BaseCacheException}; 分布式缓存底层异常,日志记录异常信息并返回false
+	 *
+	 * @param instanceId
+	 *            实例标识
+	 *
+	 * @param key
+	 * @param map
+	 * @return 设置成功返回true,否则返回false
+	 */
+	<K, V> boolean mapSetForInstance(String instanceId, String key, Map<K, V> map);
+
+	/**
+	 * map已存在时,为它添加字段和值;map不存在时,新建新的map key不合规时抛出{@link BaseCacheException};
+	 * 分布式缓存底层异常,日志记录异常信息并返回false
+	 *
+	 * @param instanceId
+	 *            实例标识
+	 *
+	 * @param key
+	 * @param field
+	 * @param value
+	 * @return 设置成功返回true,否则返回false
+	 */
+	<K, V> boolean mapAddForInstance(String instanceId, String key, K field, V value);
+
+	/**
+	 * 移除map中的指定字段 key不合规时抛出{@link BaseCacheException}; key不存在时抛出
+	 * {@link BaseCacheException}; 分布式缓存底层异常,日志记录异常信息并返回-1
+	 *
+	 * @param instanceId
+	 *            实例标识
+	 *
+	 * @param key
+	 * @param fields
+	 *            待删除字段
+	 * @return 返回成功删除的字段数
+	 */
+	@SuppressWarnings("unchecked")
+	<K> long mapDelForInstance(String instanceId, String key, K... fields);
+
+	/**
+	 * 移除map中的所有字段<br> key不合规时抛出{@link BaseCacheException}; key不存在时抛出
+	 * {@link BaseCacheException}; 分布式缓存底层异常,日志记录异常信息并返回-1
+	 *
+	 * @param instanceId
+	 *            实例标识
+	 *
+	 * @param key
+	 * @return 返回成功删除的字段数
+	 */
+	long mapDelForInstance(String instanceId, String key);
+
+	/**
+	 * 获取map中指定字段的值,并以指定类型返回 key不合规时抛出{@link BaseCacheException}; key不存在时抛出
+	 * {@link BaseCacheException}; 分布式缓存底层异常,日志记录异常信息并返回null
+	 *
+	 * @param instanceId
+	 *            实例标识
+	 *
+	 * @param key
+	 * @param field
+	 * @param valueType
+	 *            value类型
+	 * @return 指定的value
+	 */
+	<K, V> V mapGetForInstance(String instanceId, String key, K field, Class<V> valueType);
+
+	/**
+	 * 获取map中指定字段的值,并以指定类型返回
+	 * localCache为true时,从本地缓存中获取,若本地缓存不存在指定key,从分布式缓存加载至本地;
+	 * localCache为false时,直接从分布式缓存获取; key不合规时抛出{@link BaseCacheException};
+	 * key不存在时抛出{@link BaseCacheException}; 分布式缓存底层异常,日志记录异常信息并返回null
+	 *
+	 * @param instanceId
+	 *            实例标识
+	 *
+	 * @param key
+	 * @param field
+	 * @param valueType
+	 *            value类型
+	 * @param localCache
+	 *            是否启用本地缓存
+	 * @return 指定的value
+	 */
+	<K, V> V mapGetForInstance(String instanceId, String key, K field, Class<V> valueType, boolean localCache);
+
+	/**
+	 * 获取指定map,并以指定格式返回 key不合规时抛出{@link BaseCacheException}; key不存在时抛出
+	 * {@link BaseCacheException}; 分布式缓存底层异常,日志记录异常信息并返回null
+	 *
+	 * @param instanceId
+	 *            实例标识
+	 *
+	 * @param key
+	 * @param valueType
+	 *            value类型
+	 * @return 指定的map
+	 */
+	<K, V> Map<K, V> mapGetForInstance(String instanceId, String key, Class<K> fieldType, Class<V> valueType);
+
+	/**
+	 * 获取指定map,并以指定格式返回 localCache为true时,从本地缓存中获取,若本地缓存不存在指定key,从分布式缓存加载至本地;
+	 * localCache为false时,直接从分布式缓存获取; key不合规时抛出{@link BaseCacheException};
+	 * key不存在时抛出{@link BaseCacheException}; 分布式缓存底层异常,日志记录异常信息并返回null
+	 *
+	 * @param instanceId
+	 *            实例标识
+	 *
+	 * @param key
+	 * @param valueType
+	 *            value类型
+	 * @param localCache
+	 *            是否启用本地缓存
+	 * @return 指定的map
+	 */
+	<K, V> Map<K, V> mapGetForInstance(String instanceId, String key, Class<K> fieldType, Class<V> valueType, boolean localCache);
+
+	/**
+	 * 获取map中的字段数; key不合规时抛出{@link BaseCacheException}; key不存在时抛出
+	 * {@link BaseCacheException}; 分布式缓存底层异常,日志记录异常信息并返回-1
+	 *
+	 * @param instanceId
+	 *            实例标识
+	 *
+	 * @param key
+	 * @return map的大小
+	 */
+	int mapSizeForInstance(String instanceId, String key);
+
+	/**
+	 * 获取map中的字段数; localCache为true时,从本地缓存中获取,若本地缓存不存在指定key,从分布式缓存获取;
+	 * localCache为false时,直接从分布式缓存获取; key不合规时抛出{@link BaseCacheException};
+	 * key不存在时抛出{@link BaseCacheException}; 分布式缓存底层异常,日志记录异常信息并返回-1
+	 *
+	 * @param instanceId
+	 *            实例标识
+	 *
+	 * @param key
+	 * @param localCache
+	 *            是否启用本地缓存
+	 * @return map的大小
+	 */
+	int mapSizeForInstance(String instanceId, String key, boolean localCache);
+
+	/**
+	 * 判断map中是否存在指定字段 key不合规时抛出{@link BaseCacheException}; key不存在时抛出
+	 * {@link BaseCacheException}; 分布式缓存底层异常,日志记录异常信息并返回false
+	 *
+	 * @param instanceId
+	 *            实例标识
+	 *
+	 * @param key
+	 * @param field
+	 * @return 是否存在指定字段
+	 */
+	<K> boolean mapContainsFieldForInstance(String instanceId, String key, K field);
+
+	/**
+	 * 判断map中是否存在指定字段 localCache为true时,从本地缓存中获取,若本地缓存不存在指定key,从分布式缓存获取;
+	 * localCache为false时,直接从分布式缓存获取; key不合规时抛出{@link BaseCacheException};
+	 * key不存在时抛出{@link BaseCacheException}; 分布式缓存底层异常,日志记录异常信息并返回false
+	 *
+	 * @param instanceId
+	 *            实例标识
+	 *
+	 * @param key
+	 * @param field
+	 * @return 是否存在指定字段
+	 */
+	<K> boolean mapContainsFieldForInstance(String instanceId, String key, K field, boolean localCache);
+
+	/**
+	 * 判断map中是否存在指定的值 key不合规时抛出{@link BaseCacheException}; key不存在时抛出
+	 * {@link BaseCacheException}; 分布式缓存底层异常,日志记录异常信息并返回false
+	 *
+	 * @param instanceId
+	 *            实例标识
+	 *
+	 * @param key
+	 * @param value
+	 * @return
+	 */
+	<V> boolean mapContainsValueForInstance(String instanceId, String key, V value);
+
+	/**
+	 * 判断map中是否存在指定的值 localCache为true时,从本地缓存中获取,若本地缓存不存在指定key,从分布式缓存获取;
+	 * localCache为false时,直接从分布式缓存获取; key不合规时抛出{@link BaseCacheException};
+	 * key不存在时抛出{@link BaseCacheException}; 分布式缓存底层异常,日志记录异常信息并返回false
+	 *
+	 * @param instanceId
+	 *            实例标识
+	 *
+	 * @param key
+	 * @param value
+	 * @param localCache
+	 * @return
+	 */
+	<V> boolean mapContainsValueForInstance(String instanceId, String key, V value, boolean localCache);
+
+	/**
+	 * 将map中字段field的值递增指定的步长dela field不存在时先设置初始值为0的field，再递增步长dela; key不合规时抛出
+	 * {@link BaseCacheException}; key不存在时抛出{@link BaseCacheException};
+	 * 分布式缓存底层异常,日志记录异常信息并返回-1
+	 *
+	 * @param instanceId
+	 *            实例标识
+	 *
+	 * @param key
+	 * @param field
+	 * @param dela
+	 * @return double
+	 */
+	<K> double mapCounterForInstance(String instanceId, String key, K field, double dela);
+
+	/**
+	 * 返回map中指定fields对应的value集合,并以指定类型返回 key不合规时抛出{@link BaseCacheException};
+	 * key不存在时抛出{@link BaseCacheException}; 分布式缓存底层异常,日志记录异常信息并返回null
+	 *
+	 * @param instanceId
+	 *            实例标识
+	 *
+	 * @param key
+	 * @param valueType
+	 * @param fields
+	 * @return List<V>
+	 */
+	@SuppressWarnings("unchecked")
+	<K, V> List<V> mapGetForInstance(String instanceId, String key, Class<V> valueType, K... fields);
+
+	/**
+	 * 返回map中指定fields对应的value集合,并以指定类型返回
+	 * localCache为true时,从本地缓存中获取,若本地缓存不存在指定key,从分布式缓存获取;
+	 * localCache为false时,直接从分布式缓存获取; key不合规时抛出{@link BaseCacheException};
+	 * key不存在时抛出{@link BaseCacheException}; 分布式缓存底层异常,日志记录异常信息并返回null
+	 *
+	 * @param instanceId
+	 *            实例标识
+	 *
+	 * @param key
+	 * @param valueType
+	 * @param fields
+	 * @return List<V>
+	 */
+	@SuppressWarnings("unchecked")
+	<K, V> List<V> mapGetForInstance(String instanceId, String key, boolean localCache, Class<V> valueType, K... fields);
+
+	/**
+	 * 向set中添加元素element key不合规时抛出{@link BaseCacheException};
+	 * 分布式缓存底层异常,日志记录异常信息并返回false
+	 *
+	 * @param instanceId
+	 *            实例标识
+	 *
+	 * @param key
+	 * @param element
+	 * @return 操作成功返回true,否则返回false
+	 */
+	<E> boolean setAddForInstance(String instanceId, String key, E element);
+
+	/**
+	 * 移除set中的指定元素; 指定元素不存在时返回false; key不合规时抛出{@link BaseCacheException};
+	 * key不存在时抛出{@link BaseCacheException}; 分布式缓存底层异常,日志记录异常信息并返回false
+	 *
+	 * @param instanceId
+	 *            实例标识
+	 *
+	 * @param key
+	 * @param element
+	 * @return 移除成功返回true,否则返回false
+	 */
+	<E> boolean setRemoveForInstance(String instanceId, String key, E element);
+
+	/**
+	 * 判断set中是否包含指定元素 key不合规时抛出{@link BaseCacheException}; key不存在时抛出
+	 * {@link BaseCacheException}; 分布式缓存底层异常,日志记录异常信息并返回false
+	 *
+	 * @param instanceId
+	 *            实例标识
+	 *
+	 * @param key
+	 * @param element
+	 * @return 操作成功返回true,否则返回false
+	 */
+	<E> boolean setContainsForInstance(String instanceId, String key, E element);
+
+	/**
+	 * 判断set中是否包含指定元素; localCache为true时,从本地缓存中获取,若本地缓存不存在指定key,从分布式缓存加载至本地;
+	 * localCache为false时,直接从分布式缓存获取; key不合规时抛出{@link BaseCacheException};
+	 * key不存在时抛出{@link BaseCacheException}; 分布式缓存底层异常,日志记录异常信息并返回false
+	 *
+	 * @param instanceId
+	 *            实例标识
+	 *
+	 * @param key
+	 * @param element
+	 * @param localCache
+	 *            是否启用本地缓存
+	 * @return
+	 */
+	<E> boolean setContainsForInstance(String instanceId, String key, E element, boolean localCache);
+
+	/**
+	 * 返回set中的元素个数; key不合规时抛出{@link BaseCacheException}; key不存在时抛出
+	 * {@link BaseCacheException}; 分布式缓存底层异常,日志记录异常信息并返回-1
+	 *
+	 * @param instanceId
+	 *            实例标识
+	 *
+	 * @param key
+	 * @return 元素个数
+	 */
+	int setSizeForInstance(String instanceId, String key);
+
+	/**
+	 * 返回set中的元素个数; localCache为true时,从本地缓存中获取,若本地缓存不存在指定key,从分布式缓存获取;
+	 * localCache为false时,直接从分布式缓存获取; key不合规时抛出{@link BaseCacheException};
+	 * key不存在时抛出{@link BaseCacheException}; 分布式缓存底层异常,日志记录异常信息并返回-1
+	 *
+	 * @param instanceId
+	 *            实例标识
+	 *
+	 * @param key
+	 * @param localCache
+	 *            是否启用本地缓存
+	 * @return 元素个数
+	 */
+	int setSizeForInstance(String instanceId, String key, boolean localCache);
+
+	/**
+	 * 以指定类型返回set; key不合规时抛出{@link BaseCacheException}; key不存在时抛出
+	 * {@link BaseCacheException}; 分布式缓存底层异常,日志记录异常信息并返回null
+	 *
+	 * @param instanceId
+	 *            实例标识
+	 *
+	 * @param key
+	 * @return set
+	 */
+	<E> Set<E> setGetForInstance(String instanceId, String key, Class<E> elementType);
+
+	/**
+	 * 以指定类型返回set; localCache为true时,从本地缓存中获取,若本地缓存不存在指定key,从分布式缓存加载至本地;
+	 * localCache为false时,直接从分布式缓存获取; key不合规时抛出{@link BaseCacheException};
+	 * key不存在时抛出{@link BaseCacheException}; 分布式缓存底层异常,日志记录异常信息并返回null
+	 *
+	 * @param instanceId
+	 *            实例标识
+	 *
+	 * @param key
+	 * @param localCache
+	 *            是否启用本地缓存
+	 * @return set
+	 */
+	<E> Set<E> setGetForInstance(String instanceId, String key, Class<E> elementType, boolean localCache);
+
+	// 计数器相关操作
+	/**
+	 * 若计数器存在:将指定计数器的值加1后返回;若计数器不存在:创建初始值为1,有效期为永久的计数器,将计数器的初始值返回; key不合规时抛出
+	 * {@link BaseCacheException}; 分布式缓存底层异常,日志记录异常信息并返回-1
+	 *
+	 * @param instanceId
+	 *            实例标识
+	 *
+	 * @param key
+	 * @return 计数器的值
+	 */
+	long counterForInstance(String instanceId, String key);
+
+	/**
+	 * 若计数器存在:将计数器的值加dela后返回;若计数器不存在:创建初始值为1,有效期为永久的计数器,将计数器的初始值返回; key不合规时抛出
+	 * {@link BaseCacheException}; 分布式缓存底层异常,日志记录异常信息并返回-1
+	 *
+	 * @param instanceId
+	 *            实例标识
+	 *
+	 * @param key
+	 * @param dela
+	 *            步长,递增为正,递减为负
+	 * @return 计数器的值
+	 */
+	long counterForInstance(String instanceId, String key, long dela);
+
+	/**
+	 * 若计数器存在:将计数器的值加dala后返回;若计数器不存在:创建初始值为initial,有效期为永久的计数器,将计数器的初始值返回;
+	 * key不合规时抛出{@link BaseCacheException}; 分布式缓存底层异常,日志记录异常信息并返回-1
+	 *
+	 * @param instanceId
+	 *            实例标识
+	 *
+	 * @param key
+	 * @param dela
+	 *            步长,递增为正,递减为负
+	 * @param initial
+	 *            计数器初始值
+	 * @return 计数器的值
+	 */
+	long counterForInstance(String instanceId, String key, long dela, long initial);
+
+	/**
+	 * 若计数器存在:将计数器的值加dala后返回;若计数器不存在:创建初始值为initial,有效期为expiry秒的计数器,将计数器的初始值返回;
+	 * key不合规时抛出{@link BaseCacheException}; 分布式缓存底层异常,日志记录异常信息并返回-1
+	 *
+	 * @param instanceId
+	 *            实例标识
+	 *
+	 * @param key
+	 * @param dela
+	 *            步长,递增为正,递减为负
+	 * @param initial
+	 *            计数器初始值
+	 * @param expiry
+	 *            计数器有效期
+	 * @return
+	 */
+	long counterForInstance(String instanceId, String key, long dela, long initial, long expiry);
+
+	/**
+	 * 若计数器存在:将计数器的值加dela后返回;若计数器不存在:创建初始值为1,有效期为永久的计数器,将计数器的初始值返回; key不合规时抛出
+	 * {@link BaseCacheException}; 分布式缓存底层异常,日志记录异常信息并返回-1
+	 *
+	 * @param instanceId
+	 *            实例标识
+	 *
+	 * @param key
+	 * @param dela
+	 *            步长,递增为正,递减为负
+	 * @return 计数器的值
+	 */
+	double counterForInstance(String instanceId, String key, double dela);
+
+	/**
+	 * 若计数器存在:将计数器的值加dala后返回;若计数器不存在:创建初始值为initial,有效期为永久的计数器,将计数器的初始值返回;
+	 * key不合规时抛出{@link BaseCacheException}; 分布式缓存底层异常,日志记录异常信息并返回-1
+	 *
+	 * @param instanceId
+	 *            实例标识
+	 *
+	 * @param key
+	 * @param dela
+	 *            步长,递增为正,递减为负
+	 * @param initial
+	 *            计数器初始值
+	 * @return 计数器的值
+	 */
+	double counterForInstance(String instanceId, String key, double dela, double initial);
+
+	/**
+	 * 若计数器存在:将计数器的值加dala后返回;若计数器不存在:创建初始值为initial,有效期为expiry秒的计数器,将计数器的初始值返回;
+	 * key不合规时抛出{@link BaseCacheException}; 分布式缓存底层异常,日志记录异常信息并返回-1
+	 *
+	 * @param instanceId
+	 *            实例标识
+	 *
+	 * @param key
+	 * @param dela
+	 *            步长,递增为正,递减为负
+	 * @param initial
+	 *            计数器初始值
+	 * @param expiry
+	 *            计数器有效期
+	 * @return
+	 */
+	double counterForInstance(String instanceId, String key, double dela, double initial, long expiry);
+}

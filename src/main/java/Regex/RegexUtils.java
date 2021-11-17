@@ -67,6 +67,22 @@ public class RegexUtils {
 
     public static final String percent="^\\d*(\\.\\d+)?%$";
 
+//    邮箱的正则表达式
+
+    public static final String mail="^[0-9a-zA-Z\\.\\_\\-]{1,}@[0-9a-zA-Z]{1,}\\.[0-9a-zA-Z]{1,}$";
+
+
+
+    // 手机号的正则表达式
+
+
+    public static final String phone="^[0-9a-zA-Z\\.\\_\\-]{1,}@[0-9a-zA-Z]{1,}\\.[0-9a-zA-Z]{1,}$";
+
+
+
+
+
+    public static final String filetype="^@filename=([A_Za-z]+)$";
 
 
 
@@ -79,7 +95,7 @@ public class RegexUtils {
         Scanner scanner = new Scanner(System.in);
         while (!scanner.hasNext("12")){
             String s = scanner.nextLine();
-            System.out.println(Pattern.compile(setNum).matcher(s).matches());
+            System.out.println(Pattern.compile(filetype).matcher(s).matches());
 
 
         }

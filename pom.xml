@@ -6,7 +6,11 @@
 
     <groupId>org.example</groupId>
     <artifactId>MyUtils</artifactId>
+    <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>爬虫</module>
+    </modules>
     <dependencies>
         <dependency>
             <groupId>junit</groupId>
@@ -74,6 +78,23 @@
             <artifactId>util-crypt</artifactId>
             <version>1.0.0</version>
         </dependency>
+
+
+<!--        spider-->
+        <!-- HttpClient -->
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.5.3</version>
+        </dependency>
+
+        <!-- 日志 -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>1.7.25</version>
+        </dependency>
+
 
 
 

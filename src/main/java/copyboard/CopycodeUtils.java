@@ -6,6 +6,10 @@ package copyboard;
  * @Description TODO
  * @Date 2021/2/3 14:22
  */
+import string.StringConstuctor;
+import string.format.JoinStringBySplitSign;
+import string.format.UpLowerCharMethods;
+
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
@@ -17,6 +21,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Reader;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class CopycodeUtils {
 
@@ -123,9 +131,10 @@ public class CopycodeUtils {
 
     public static void main(String[] args) {
         String sysClipboardText = getSysClipboardText();
-        setSysClipboardText(sysClipboardText+"hhh");
-
-
-
+        String result = new StringConstuctor(sysClipboardText)
+                .build(new UpLowerCharMethods())
+                .build(new JoinStringBySplitSign(":")).getTarget();
+        System.out.println(result);
+        setSysClipboardText(result);
     }
 }
